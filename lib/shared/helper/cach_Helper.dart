@@ -1,0 +1,36 @@
+import 'package:shared_preferences/shared_preferences.dart';
+
+class Cach_helper{
+  static SharedPreferences? shared;
+  static init()async
+  {
+    shared =await SharedPreferences.getInstance();
+  }
+
+  static Future<bool> SaveData(
+    {required String key,
+    required dynamic value,})async
+  {
+    if(value is bool)
+    {return await shared!.setBool(key, value);}
+    if(value is String)
+    {return await shared!.setString(key, value);}
+    if(value is int)
+    {return await shared!.setInt(key, value);}
+
+    return await shared!.setDouble(key, value);
+  }
+
+  static dynamic GetData({
+    required String key,
+  })
+  {
+    return shared!.get(key);
+  }
+
+  static Future<bool> RemoveData(
+    {required String key}
+  ){
+    return shared!.remove(key);
+  }
+}
