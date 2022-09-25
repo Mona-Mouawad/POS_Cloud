@@ -35,11 +35,13 @@ Future<void> main() async {
   USER_NAME =Cach_helper.GetData(key: 'USER_NAME')?? '';
 
   await createdatabase();
-  await getInf();
-  await GetAllData_DB();
- // await GetAllApiTable(LeId: 1, UserId: 1);
+  // await getInf();
+  // await GetAllData_DB();
+
+ // // await GetAllApiTable(LeId: 1, UserId: 1);
   Widget ?widget;
 
+await  getInvUomdata (LeId: 1) ;
 
 if(deviceId != null)
   {

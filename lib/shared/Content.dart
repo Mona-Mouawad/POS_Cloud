@@ -13,7 +13,7 @@ int? UserId;
 int? Active = 1 ;
 bool S_D = false;
 bool serviceEnabled = false;
-int ? LE_ID ;
+int ? LE_ID = 1;
 String? LeName;
 String? deviceId;
 String? USER_NAME;

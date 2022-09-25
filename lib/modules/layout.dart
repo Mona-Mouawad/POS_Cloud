@@ -8,12 +8,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pos/cubit/cubit.dart';
 import 'package:pos/cubit/states.dart';
 import 'package:pos/modules/Customer&Stock.dart';
+import 'package:pos/modules/InstallmentSystem.dart';
+import 'package:pos/modules/Outgoings.dart';
+import 'package:pos/modules/SO_Customer_Stock.dart';
+import 'package:pos/modules/SaleInvoice.dart';
+import 'package:pos/modules/SellOrderDelivery.dart';
 import 'package:pos/modules/Settings.dart';
 import 'package:pos/modules/Stock.dart';
 import 'package:pos/modules/Treasury.dart';
 import 'package:pos/modules/Get_Post_Data_Screen.dart';
+import 'package:pos/modules/casher.dart';
 import 'package:pos/modules/clien.dart';
+import 'package:pos/modules/maintenance.dart';
 import 'package:pos/modules/reports.dart';
+import 'package:pos/modules/showdelivers.dart';
+import 'package:pos/modules/suppliers.dart';
 import 'package:pos/shared/component.dart';
 import 'package:pos/shared/print.dart';
 import 'package:pos/shared/style/colors.dart';
@@ -134,19 +143,15 @@ class _LayoutScreenState extends State<LayoutScreen> {
                         NavigatorTo(context, Customer_Stock());
                       }, image: 'images/فاتورة بيع.png'),
                       SizedBox(width: 8,),
-                      item(text: 'المخزن', function: () {
-                        NavigatorTo(context, Stock());
-                      }, image: 'images/المخزن.png'),
-                     //  SizedBox(width: 8,),
-                      // item(text: 'تسليم فاتورة/أمر بيع', function: (){
-                      //   NavigatorTo(context, SellOrderDelivery());
-                      // }, image: 'images/تسليم.jpg'),
-                      // SizedBox(width: 8,),
-                      // item(text: 'أمر بيع', function: () {
-                       //  Cubit.valStock = '';
-                      //   Cust_Model = null;
-                      //   NavigatorTo(context, SO_Customer_Stock());
-                      // }, image: 'images/أمر_بيع.jpg'),
+                      item(text: 'تسليم فاتورة/أمر بيع', function: (){
+                        NavigatorTo(context, SellOrderDelivery());
+                      }, image: 'images/تسليم.jpg'),
+                      SizedBox(width: 8,),
+                      item(text: 'أمر بيع', function: () {
+                        Cubit.valStock = '';
+                        Cust_Model = null;
+                        NavigatorTo(context, SO_Customer_Stock());
+                      }, image: 'images/أمر_بيع.jpg'),
 
                     ],
                   ),
@@ -156,10 +161,13 @@ class _LayoutScreenState extends State<LayoutScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     textDirection: TextDirection.rtl,
                     children: [
-                      item(text: 'العملاء', function: () {
-                        NavigatorTo(context, clienScreen());
-                      }, image: 'images/العملاء.png'),
-
+                      item(text: 'فاتورة شراء', function: (){
+                        NavigatorTo(context, SaleInvoice());
+                      }, image: 'images/فاتورة شراء.jpg'),
+                      SizedBox(width: 15,),
+                      item(text: 'المخزن', function: () {
+                        NavigatorTo(context, Stock());
+                      }, image: 'images/المخزن.png'),
                       SizedBox(width: 8,),
                       item(text: 'الخزينه', function: () {
                       Cubit. ChageRadioTreasury(2);
@@ -175,6 +183,11 @@ class _LayoutScreenState extends State<LayoutScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     textDirection: TextDirection.rtl,
                     children: [
+
+                      item(text: 'العملاء', function: () {
+                        NavigatorTo(context, clienScreen());
+                      }, image: 'images/العملاء.png'),
+                      SizedBox(width: 8,),
                       item(text: 'الاستعلامات و التقارير', function: () {
                         //reportsScreen
                         NavigatorTo(context, reportsScreen());
@@ -184,13 +197,69 @@ class _LayoutScreenState extends State<LayoutScreen> {
                         NavigatorTo(context, Get_Post_Data_Screen());
                       }, image: 'images/تخزين و استرجاع البيانات.jpg'),
 
-                      SizedBox(width: 8,),
-                      item(text: 'الاعدادات', function: () {
-                        NavigatorTo(context, Settings());
-                      }, image: 'images/الاعدادات.jpg'),
                     ],
                   ),
+                 // SizedBox(height: 10,),
+                  // Row(
+                  //   crossAxisAlignment: CrossAxisAlignment.center,
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   textDirection: TextDirection.rtl,
+                  //   children: [
+                  //
+                  //     item(text: 'الموردين', function: (){
+                  //       NavigatorTo(context, suppliersScreen());
+                  //     }, image: 'images/الموردين.jpg'),
+                  //     SizedBox(width: 15,),
+                  //
+                  //
+                  //   ],
+                  // ),
+                   SizedBox(height: 10,),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      textDirection: TextDirection.rtl,
+                      children: [
+                        item(text: 'الكاشير', function: (){
+
+                          NavigatorTo(context, casherScreen());
+                        }, image: 'images/الكاشير.jpg'),
+                        SizedBox(width: 15,),
+                        item(text: 'المصروفات', function: (){
+                          NavigatorTo(context, Outgoings());
+                        }, image: 'images/money.jpg'),
+                        SizedBox(width: 15,),
+                        // item(text: 'نظام التقسيط', function: (){
+                        //   NavigatorTo(context, InstallmentSystem());
+                        // }, image: 'images/تقسيط.png'),
+                        SizedBox(width: 8,),
+                        item(text: 'الاعدادات', function: () {
+                          NavigatorTo(context, Settings());
+                        }, image: 'images/الاعدادات.jpg'),
+                      ],
+                    ),
                   SizedBox(height: 10,),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    textDirection: TextDirection.rtl,
+                    children: [
+                      item(text: 'الدليفري', function: (){
+                        NavigatorTo(context, showDelivers());
+                      }, image: 'images/الدليفري.jpg'),
+                       SizedBox(width: 15,),
+                                            item(text: 'الصيانه', function: (){
+                                              NavigatorTo(context, Maintenance() );
+                                            }, image: 'images/الصيانه.jpg'),
+                      SizedBox(width: 15,),
+                      item(text: 'الشكاوى و الاقتراحات', function: () async { }, image: 'images/الشكاوى.png'),
+
+                    ],
+                  ),
+
+                  SizedBox(height: 8,),
+
+              SizedBox(height: 10,),
                   Container(
                     width: double.infinity,
                     height: 225,

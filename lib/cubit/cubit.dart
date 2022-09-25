@@ -33,6 +33,20 @@ class posCubit extends Cubit<posStates> {
 
   static posCubit get(context) => BlocProvider.of(context);
 
+  String valSupplier = 'اضغط لتحديد مورد';
+
+  void changevalSupplierDropdown(String v) {
+    valSupplier = v;
+    emit(ChangeDropdownvalSupplierstate());
+  }
+
+  String valDeletSupplier = '';
+
+  void changeDropdownDeletSupplier(String v) {
+    valDeletSupplier = v;
+    emit(ChangeDropdownDeletSupplierstate());
+  }
+
   double AfterOffer = 0.0;
   double Discount = 0.0;
   int ROfferval = 1;
@@ -260,6 +274,7 @@ class posCubit extends Cubit<posStates> {
     emit(ChangeDropdownvalStock_Detailsstate());
   }
  // String ? valInvUom = Uom_Unit!.UomName ?? '' ;
+
   Inv_Uom_Model   Uom_UnitInvoiceItem  = Uom_BaseUnit ?? Inv_Uom_List[0] ;
   changeDropdownInvUom({required String v ,required InvoiceItemModel ITEMmodel})  async {
 //    valInvUom = v;

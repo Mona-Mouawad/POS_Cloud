@@ -440,7 +440,7 @@ getGps(database) async {
 }
 
 List<Inv_Uom_Model>  Inv_Uom_List =[] ;
-Inv_Uom_Model ? Uom_BaseUnit  ;
+Inv_Uom_Model ? Uom_BaseUnit = Inv_Uom_Model()  ;
 getInv_Uom(database)
 async {
   database.rawQuery('SELECT * FROM MobPosInv_Uom '

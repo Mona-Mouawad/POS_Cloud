@@ -395,6 +395,7 @@ Future<int> getdevicedata({required String deviceId ,required int UserId })async
 getInvUomdata({required int LeId })
 {
   Inv_Uom model ;
+  Inv_Uom_Model inv_Uom_Model  =new Inv_Uom_Model();
   Dio_Helper.getData(url: '${URl}InvUom?q=LeId=${LeId}').then((value) async {
     print(value);
     String v =value.toString().trim().replaceAll('\r\n', '').replaceAll('^', '');
@@ -407,11 +408,16 @@ getInvUomdata({required int LeId })
         await database.insert('MobPosInv_Uom', element.toJson());
       }
     });
+    if (model.items.isEmpty )
+      { database.insert('MobPosInv_Uom', inv_Uom_Model.toJson());}
      await getInv_Uom(database);
     print(model.items[0].UomId.toString());
     print('**********************  MobPosInv_Uom  ++++++++++++-------------=====================');
   } ).catchError((Error)
-  { print("eee  MobPosInv_Uom  "+Error.toString());
+  async {
+    database.insert('MobPosInv_Uom', inv_Uom_Model.toJson());
+    await getInv_Uom(database);
+    print("eee rrrr ooo rrrr  MobPosInv_Uom  "+Error.toString());
   });
 }
 
@@ -420,7 +426,7 @@ GetAllApiTable({required LeId , required UserId})
 async {
   await getUserdata(LeId: LeId) ;
   await  getCitydata(LeId: LeId!);
-  await  getInvUomdata(LeId: LeId!);
+  await getInvUomdata(LeId: LeId!);
   await  getCityRegionedata(LeId: LeId! );
   await getItemdata(LeId: LeId) ;
   await  getGroupItemdata(LeId: LeId );
